@@ -2,15 +2,15 @@ import { PersonalInfo } from './personalInfo';
 import { Contact } from './contacts/contact';
 import { Education } from './education';
 import { ContactFactory } from './contacts/contactFactory';
+import { User } from './user';
 
-export class Human {
+export class Human extends User {
     private _personalInfo: PersonalInfo;
     private _contacts: Contact[];
     private _educations: Education[];
-    private _login: string;
-    private _password: number;
 
     constructor(obj?: any) {
+        super(obj);
         this._personalInfo = obj && new PersonalInfo(obj._personalInfo);
         this._contacts = obj && obj._contacts && obj._contacts.map(contact => ContactFactory.getContactFromModel(contact));
         this._educations = obj && obj._educations && obj._educations.map(edu => new Education(edu));

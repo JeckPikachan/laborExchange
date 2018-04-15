@@ -4,13 +4,11 @@ import { Vacancy } from "./vacancy";
 export class Employer extends User {
     private _info: string;
     private _name: string;
-    private _vacancies: Vacancy[];
 
     constructor(obj?: any) {
         super(obj);
         this._info = obj && obj._info;
         this._name = obj && obj._name;
-        this._vacancies = obj && obj._vacancies && obj._vacancies.map(vac => new Vacancy(vac));
     }
 
     public get info(): string {
@@ -29,15 +27,4 @@ export class Employer extends User {
         this._name = name;
     }
 
-    public get vacancies(): Vacancy[] {
-        return this._vacancies;
-    }
-
-    public addVacancy(vacancy: Vacancy): void {
-        this._vacancies.push(vacancy);
-    }
-
-    public deleteVacancy(vacancy: Vacancy): void {
-        this._vacancies = this._vacancies.filter(vac => vac !== vacancy);
-    }
 }

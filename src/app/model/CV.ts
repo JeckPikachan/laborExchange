@@ -6,17 +6,17 @@ export class CV {
     private _careerObjective: CareerObjective;
     private _expirience: Expirience[];
     private _detailedInfo: string;
-    private _employee: Employee;
+    private _ownerLogin: string;
 
-    constructor(employee: Employee, obj?: any) {
-        this._employee = employee;
+    constructor(ownerLogin: string, obj?: any) {
+        this._ownerLogin = ownerLogin;
         this._careerObjective = obj && obj._careerObjective && new CareerObjective(obj._careerObjective);
         this._expirience = obj && obj._expirience && obj._expirience.map(exp => new Expirience(exp));
         this._detailedInfo = obj && obj._detailedInfo;
     }
 
-    public get employee(): Employee {
-        return this._employee;
+    public get ownerLogin(): string {
+        return this._ownerLogin;
     }
 
     public get careerObjective(): CareerObjective {

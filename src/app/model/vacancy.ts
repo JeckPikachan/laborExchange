@@ -7,10 +7,10 @@ export class Vacancy {
     private _desiredExpirience: number;
     private _salary: number;
     private _description: string;
-    private _employer: Employer;
+    private _ownerLogin: string;
 
-    constructor(employer: Employer, obj?: any) {
-        this._employer = employer;
+    constructor(ownerLogin: string, obj?: any) {
+        this._ownerLogin = ownerLogin;
         this._position = obj && obj._position;
         this._city = obj && obj._city;
         this._hoursPerWeek = obj && obj._hoursPerWeek;
@@ -19,8 +19,8 @@ export class Vacancy {
         this._description = obj && obj._description;
     }
 
-    public get employer(): Employer {
-        return this._employer;
+    public get ownerLogin(): string {
+        return this._ownerLogin;
     }
 
     public get position(): string {

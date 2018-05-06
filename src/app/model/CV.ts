@@ -4,14 +4,14 @@ import { Employee } from "./employee";
 
 export class CV {
     private _careerObjective: CareerObjective;
-    private _expirience: Expirience[];
+    private _experience: Expirience[];
     private _detailedInfo: string;
     private _ownerLogin: string;
 
     constructor(ownerLogin: string, obj?: any) {
         this._ownerLogin = ownerLogin;
         this._careerObjective = obj && obj._careerObjective && new CareerObjective(obj._careerObjective);
-        this._expirience = obj && obj._expirience && obj._expirience.map(exp => new Expirience(exp));
+        this._experience = obj && obj._experience && obj._experience.map(exp => new Expirience(exp));
         this._detailedInfo = obj && obj._detailedInfo;
     }
 
@@ -23,16 +23,16 @@ export class CV {
         return this._careerObjective;
     }
 
-    public get expirience(): Expirience[] {
-        return this._expirience;
+    public get experience(): Expirience[] {
+        return this._experience;
     }
 
     public addExpirience(exp: Expirience): void {
-        this._expirience.push(exp);
+        this._experience.push(exp);
     }
 
     public deleteExpirience(exp: Expirience): void {
-        this._expirience = this._expirience.filter(expirience => exp !== expirience);
+        this._experience = this._experience.filter(expirience => exp !== expirience);
     }
 
     public get detailedInfo(): string {

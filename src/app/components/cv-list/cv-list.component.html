@@ -1,0 +1,10 @@
+<div>
+  <button (click)="goBack()">Back</button>
+  <ul>
+    <li *ngFor="let cv of CVList">
+      <a style="cursor: pointer;" (click)="showDetailed(cv)" >
+        {{cv.careerObjective.position}}
+      </a>
+    </li>
+  </ul>
+</div>

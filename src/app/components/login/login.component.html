@@ -5,7 +5,11 @@
   <input type="text" formControlName="login"><br>
 
   <span>password: </span>
-  <input type="password" formControlName="password">
+  <input type="password" formControlName="password"><br>
+  <select formControlName="role">
+    <option value="1">Employee</option>
+    <option value="2">Employer</option>
+  </select>
 </form>
 
 <button (click)="onLogin($event)">login</button>

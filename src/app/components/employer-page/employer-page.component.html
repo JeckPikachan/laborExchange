@@ -1,0 +1,19 @@
+<h1>Hello, {{employer.name}}</h1>
+<h3>Your vacancies:</h3>
+<ul>
+  <li *ngFor="let vacancy of vacancies">
+    position - {{vacancy.position}}<br>
+    hours per week - {{vacancy.hoursPerWeek}}<br>
+    city - {{vacancy.city}}
+  </li>
+</ul>
+
+<button (click)="goToCVList()">Show CVs</button>
+<button (click)="signOut()">Sign Out</button><br><br>
+
+<span>Your messages:</span><br>
+<div *ngFor="let message of messages">
+  <span><b>From:</b>{{message.from}}</span><br>
+  <span><b>Vacancy:</b>{{message.data.position}}</span>
+  <p>{{message.message}}</p>
+</div>

@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup = this.fb.group({
     login: [''],
-    password: ['']
+    password: [''],
+    role: ['1']
   });
 
   constructor(
@@ -32,13 +33,23 @@ export class LoginComponent implements OnInit {
     e.preventDefault();
     const login = this.loginForm.get('login').value;
     const password = this.loginForm.get('password').value;
+    const role = this.loginForm.get('role').value === "1" ? RoleEnum.employee : RoleEnum.employer;
 
-    if (!this.authService.isUserAuthenticated(login, password, RoleEnum.employee)) {
-      this.loginForm.reset();
+    console.log(role);
+
+    if (!this.authService.isUserAuthenticated(login, password, role)) {
+      this.resetForm();
       this.errorMessage = "Wrong login or password";
     } else {
       this.router.navigate([this.authService.getRedirectUrl(), login]);
     }
+  }
+
+  private resetForm(): void {
+    const chosenRole = this.loginForm.get('role').value;
+
+    this.loginForm.reset();
+    this.loginForm.get('role').setValue(chosenRole);
   }
 
 }

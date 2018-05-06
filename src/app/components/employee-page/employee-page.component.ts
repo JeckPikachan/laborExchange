@@ -12,8 +12,8 @@ import {AuthService} from "../../services/auth.service";
 })
 export class EmployeePageComponent implements OnInit {
 
-  private currentUserLogin = "yee3";
-  public CVs: Array<CV>;
+  private currentUserLogin: string;
+  public vacancies: Array<CV>;
   public employee: Employee;
 
   constructor(private laborExchange: LaborExchangeService,
@@ -24,7 +24,7 @@ export class EmployeePageComponent implements OnInit {
   ngOnInit() {
     this.currentUserLogin = this.route.snapshot.paramMap.get('login');
     this.employee = this.laborExchange.getEmployeeByLogin(this.currentUserLogin);
-    this.CVs = this.laborExchange.getCVListByEmployee(this.employee);
+    this.vacancies = this.laborExchange.getCVListByEmployee(this.employee);
   }
 
   public goToVacancyList(): void {

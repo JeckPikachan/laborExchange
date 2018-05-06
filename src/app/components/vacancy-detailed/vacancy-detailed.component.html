@@ -2,5 +2,7 @@
   <button (click)="goBack()">Back</button><br>
   <span>position: {{vacancy.position}}</span><br>
   <span>city: {{vacancy.city}}</span><br>
-  <span>hours per week: {{vacancy.hoursPerWeek}}</span>
+  <span>hours per week: {{vacancy.hoursPerWeek}}</span><br>
+  <button *ngIf="!hasResponded" (click)="respondVacancy()">respond!</button>
+  <span *ngIf="hasResponded">You already responded!</span>
 </div>

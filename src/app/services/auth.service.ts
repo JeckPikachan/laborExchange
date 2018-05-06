@@ -34,15 +34,14 @@ export class AuthService {
         localStorage.setItem('signedUser', JSON.stringify({login: login, password: password, role: role}));
         this.signedInUser = user;
         this.signedUserRole = role;
-        // switch (user.getRole()) {
-        //   case CONSTS.ROLE_USER:
-        //     this.redirectUrl = CONSTS.USER_REDIRECT_PAGE;
-        //     break;
-        //   case CONSTS.ROLE_ADMIN:
-        //     this.redirectUrl = CONSTS.ADMIN_REDIRECT_PAGE;
-        //     break;
-        // }
-        this.redirectUrl = 'employeePage';
+        switch (role) {
+          case RoleEnum.employee:
+            this.redirectUrl = 'employeePage';
+            break;
+          case RoleEnum.employer:
+            this.redirectUrl = 'employerPage';
+            break;
+        }
         this.isSignedIn = true;
       } else {
         this.isSignedIn = false;

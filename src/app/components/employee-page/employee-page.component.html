@@ -1,0 +1,12 @@
+<h1>Hello, {{employee.personalInfo.name}}</h1>
+<h3>Your CVs:</h3>
+<ul>
+  <li *ngFor="let cv of CVs">
+    position - {{cv.careerObjective.position}}<br>
+    hours per week - {{cv.careerObjective.hoursPerWeek}}<br>
+    salary - ${{cv.careerObjective.salary}}
+  </li>
+</ul>
+
+<button (click)="goToVacancyList()">Show vacancies</button>
+<button (click)="signOut()">Sign Out</button>

@@ -1,0 +1,11 @@
+<h1>Login</h1>
+<form [formGroup]="loginForm">
+  <span *ngIf="errorMessage">{{errorMessage}}</span><br>
+  <span>login: </span>
+  <input type="text" formControlName="login"><br>
+
+  <span>password: </span>
+  <input type="password" formControlName="password">
+</form>
+
+<button (click)="onLogin($event)">login</button>

@@ -1,6 +1,6 @@
 export abstract class User {
     protected _login: string;
-    protected _password: number;
+    protected _password: string;
 
     constructor(obj?: any) {
         this._login = obj && obj._login;
@@ -11,11 +11,11 @@ export abstract class User {
         return this._login;
     }
 
-    public get password(): number {
+    public get password(): string {
         return this._password;
     }
 
-    public set password(password: number) {
+    public set password(password: string) {
         this._password = password;
     }
 }

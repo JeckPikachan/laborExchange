@@ -1,10 +1,8 @@
-import { Employer } from "./employer";
-
 export class Vacancy {
     private _position: string;
     private _city: string;
     private _hoursPerWeek: number;
-    private _desiredExpirience: number;
+    private _desiredExperience: number;
     private _salary: number;
     private _description: string;
     private _ownerLogin: string;
@@ -14,7 +12,7 @@ export class Vacancy {
         this._position = obj && obj._position;
         this._city = obj && obj._city;
         this._hoursPerWeek = obj && obj._hoursPerWeek;
-        this._desiredExpirience = obj && obj._desiredExpirience;
+        this._desiredExperience = obj && obj._desiredExperience;
         this._salary = obj && obj._salary;
         this._description = obj && obj._description;
     }
@@ -47,12 +45,12 @@ export class Vacancy {
         this._hoursPerWeek = hpw;
     }
 
-    public get desiredExpirience(): number {
-        return this._desiredExpirience;
+    public get desiredExperience(): number {
+        return this._desiredExperience;
     }
 
-    public set desiredExpirience(desiredExpirience: number) {
-        this._desiredExpirience = desiredExpirience;
+    public set desiredExperience(desiredExperience: number) {
+        this._desiredExperience = desiredExperience;
     }
 
     public get salary(): number {

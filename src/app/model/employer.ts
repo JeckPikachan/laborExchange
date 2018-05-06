@@ -1,5 +1,4 @@
-import { User } from "./user";
-import { Vacancy } from "./vacancy";
+import {User} from "./user";
 
 export class Employer extends User {
     private _info: string;

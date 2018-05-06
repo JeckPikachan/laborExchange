@@ -1,9 +1,8 @@
-import { CV } from './CV';
-import { PersonalInfo } from './personalInfo';
-import { Contact } from './contacts/contact';
-import { Education } from './education';
-import { ContactFactory } from './contacts/contactFactory';
-import { User } from './user';
+import {PersonalInfo} from './personalInfo';
+import {Contact} from './contacts/contact';
+import {Education} from './education';
+import {ContactFactory} from './contacts/contactFactory';
+import {User} from './user';
 
 export class Employee extends User {
     private _personalInfo: PersonalInfo;

@@ -13,7 +13,7 @@
 
 <span>Your messages:</span><br>
 <div *ngFor="let message of messages">
-  <span><b>From:</b>{{message.from}}</span><br>
-  <span><b>Vacancy:</b>{{message.data.position}}</span>
+  <span><b>From: </b>{{message.from}}, <b>CV: </b>{{message.data.CV.careerObjective.position}}</span><br>
+  <span><b>Vacancy: </b>{{message.data.vacancy.position}}</span>
   <p>{{message.message}}</p>
 </div>

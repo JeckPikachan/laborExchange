@@ -3,6 +3,10 @@
   <span>position: {{vacancy.position}}</span><br>
   <span>city: {{vacancy.city}}</span><br>
   <span>hours per week: {{vacancy.hoursPerWeek}}</span><br>
+  <span><b>Your CV:</b></span>
+  <select [(ngModel)]="chosenCV">
+    <option *ngFor="let cv of userCVs" [ngValue]="cv">{{cv.careerObjective.position}}</option>
+  </select><br>
   <button *ngIf="!hasResponded" (click)="respondVacancy()">respond!</button>
   <span *ngIf="hasResponded">You already responded!</span>
 </div>

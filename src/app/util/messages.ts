@@ -1,4 +1,3 @@
-import {User} from "../model/user";
 /**
  * Created by chery on 06.05.2018.
  */
@@ -9,11 +8,13 @@ export class Message {
   private _from: string;
   private _to: string;
   private _data: any;
+  private _date: Date;
 
-  constructor(message: string, from: string, to: string, data?: any) {
+  constructor(message: string, from: string, to: string, date: Date, data?: any) {
     this._message = message;
-    this. _from = from;
+    this._from = from;
     this._to = to;
+    this._date = date;
     this._data = data;
   }
 
@@ -48,5 +49,13 @@ export class Message {
 
   set to(value: string) {
     this._to = value;
+  }
+
+  get date(): Date {
+    return this._date;
+  }
+
+  set date(value: Date) {
+    this._date = value;
   }
 }

@@ -5,6 +5,7 @@ import {LaborExchangeService} from "../../services/labor-exchange.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {Message, messages} from "../../util/messages";
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'app-employer-page',
@@ -21,14 +22,15 @@ export class EmployerPageComponent implements OnInit {
   constructor(private laborExchange: LaborExchangeService,
               private route: ActivatedRoute,
               private router: Router,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private messageService: MessageService) { }
 
   ngOnInit() {
     this.currentUserLogin = this.route.snapshot.paramMap.get('login');
     this.employer = this.laborExchange.getEmployerByLogin(this.currentUserLogin);
     this.vacancies = this.laborExchange.getVacancyListByEmployer(this.employer);
 
-    this.messages = messages.filter((message) => message.to === this.currentUserLogin);
+    this.messages = this.messageService.getMessagesByLogin(this.currentUserLogin);
   }
 
   public goToCVList(): void {

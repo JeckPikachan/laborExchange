@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/map';
 import {Router} from '@angular/router';
 import {User} from "../model/user";
 import {LaborExchangeService} from "./labor-exchange.service";

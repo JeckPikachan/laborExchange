@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {DataShareService} from "../../services/data-share.service";
 import {Vacancy} from "../../model/vacancy";
 import {Location} from "@angular/common";
-import {Message, messages} from "../../util/messages";
 import {AuthService} from "../../services/auth.service";
+import {MessageService} from "../../services/message.service";
+import {JobOffer} from "../../util/JobOffer";
+import {CV} from "../../model/CV";
+import {LaborExchangeService} from "../../services/labor-exchange.service";
+import {Employee} from "../../model/employee";
 
 @Component({
   selector: 'app-vacancy-detailed',
@@ -14,13 +18,21 @@ export class VacancyDetailedComponent implements OnInit {
 
   public vacancy: Vacancy;
   public hasResponded = false;
+  public chosenCV: CV;
+  public userCVs: CV[];
 
   constructor(private dataShare: DataShareService,
               private location: Location,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private messageService: MessageService,
+              private laborExchange: LaborExchangeService) {
+  }
 
   ngOnInit() {
     this.vacancy = this.dataShare.vacancy;
+    this.userCVs = this.laborExchange.getCVListByEmployee(<Employee>this.authService.getSignedInUser());
+    this.chosenCV = this.userCVs[0];
+    console.log("CVs", this.userCVs);
   }
 
   public goBack(): void {
@@ -28,12 +40,13 @@ export class VacancyDetailedComponent implements OnInit {
   }
 
   public respondVacancy(): void {
-    const message = new Message("I think this one's interesting!",
+    console.log("CV", this.chosenCV);
+    this.messageService.sendMessage(
+      "I think this one's interesting!",
       this.authService.getSignedInUser().login,
       this.vacancy.ownerLogin,
-      this.vacancy);
-
-    messages.push(message);
+      new Date(),
+      new JobOffer(this.vacancy, this.chosenCV));
 
     this.hasResponded = true;
   }

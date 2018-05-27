@@ -1,15 +1,37 @@
-<h1>Login</h1>
-<form [formGroup]="loginForm">
-  <span *ngIf="errorMessage">{{errorMessage}}</span><br>
-  <span>login: </span>
-  <input type="text" formControlName="login"><br>
+<div class="container">
+  <div class="jumbotron ">
+    <h1 class="display-4">Login</h1>
+  </div>
 
-  <span>password: </span>
-  <input type="password" formControlName="password"><br>
-  <select formControlName="role">
-    <option value="1">Employee</option>
-    <option value="2">Employer</option>
-  </select>
-</form>
+  <form [formGroup]="loginForm">
+    <ngb-alert *ngIf="errorMessage" type="danger" [dismissible]="false">
+      <strong>{{errorMessage}}</strong>
+    </ngb-alert>
 
-<button (click)="onLogin($event)">login</button>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Login</span>
+      </div>
+      <input type="text" class="form-control" formControlName="login"><br>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Password</span>
+      </div>
+      <input type="password" class="form-control" formControlName="password"><br>
+    </div>
+
+    <div class="btn-group btn-group-toggle" ngbRadioGroup formControlName="role">
+      <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" value="1"> Employee
+      </label>
+      <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" value="2"> Employer
+      </label>
+    </div>
+
+  </form>
+  <br>
+  <button type="button" class="btn btn-success btn-lg btn-block" (click)="onLogin($event)">login</button>
+</div>

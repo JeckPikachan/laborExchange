@@ -4,6 +4,7 @@ import {LaborExchangeService} from "../../services/labor-exchange.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {RoleEnum} from "../../util/constants";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private laborExchange: LaborExchangeService,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -37,12 +39,20 @@ export class LoginComponent implements OnInit {
 
     console.log(role);
 
-    if (!this.authService.isUserAuthenticated(login, password, role)) {
-      this.resetForm();
-      this.errorMessage = "Wrong login or password";
-    } else {
-      this.router.navigate([this.authService.getRedirectUrl(), login]);
-    }
+    // if (!this.authService.isUserAuthenticated(login, password, role)) {
+    //   this.resetForm();
+    //   this.errorMessage = "Wrong login or password";
+    // } else {
+    //   this.router.navigate([this.authService.getRedirectUrl(), login]);
+    // }
+    this.authService.isUserAuthenticated(login, password, role).subscribe(data => {
+      if (!data) {
+        this.resetForm();
+        this.errorMessage = "Wrong login or password!";
+      } else {
+        this.router.navigate([this.authService.getRedirectUrl(), login]);
+      }
+    });
   }
 
   private resetForm(): void {

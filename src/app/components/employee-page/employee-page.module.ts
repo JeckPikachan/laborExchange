@@ -2,13 +2,14 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {EmployeePageComponent} from "./employee-page.component";
 import {AuthService} from "../../services/auth.service";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    NgbModule
   ],
   declarations: [EmployeePageComponent],
-  exports: [EmployeePageComponent],
-  providers: [AuthService]
+  exports: [EmployeePageComponent]
 })
 export class EmployeePageModule {}

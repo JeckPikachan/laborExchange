@@ -18,6 +18,7 @@ export class EmployerPageComponent implements OnInit {
   public vacancies: Array<Vacancy>;
   public employer: Employer;
   public messages: Array<Message> = [];
+  public ready = false;
 
   constructor(private laborExchange: LaborExchangeService,
               private route: ActivatedRoute,
@@ -27,8 +28,11 @@ export class EmployerPageComponent implements OnInit {
 
   ngOnInit() {
     this.currentUserLogin = this.route.snapshot.paramMap.get('login');
-    this.employer = this.laborExchange.getEmployerByLogin(this.currentUserLogin);
-    this.vacancies = this.laborExchange.getVacancyListByEmployer(this.employer);
+    this.laborExchange.getEmployerByLogin(this.currentUserLogin).subscribe(data => {
+      this.employer = data;
+      this.vacancies = this.laborExchange.getVacancyListByEmployerLogin(this.employer.login);
+      this.ready = true;
+    });
 
     this.messages = this.messageService.getMessagesByLogin(this.currentUserLogin);
   }
@@ -37,11 +41,5 @@ export class EmployerPageComponent implements OnInit {
     console.log("hello");
     this.router.navigate(['CVList']);
   }
-
-  public signOut(): void {
-    // console.log(JSON.stringify(this.authService.getSignedInUser().login));
-    this.authService.signOutUser();
-  }
-
 
 }

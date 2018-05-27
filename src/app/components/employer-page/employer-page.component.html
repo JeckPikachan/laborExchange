@@ -1,19 +1,38 @@
-<h1>Hello, {{employer.name}}</h1>
-<h3>Your vacancies:</h3>
-<ul>
-  <li *ngFor="let vacancy of vacancies">
-    position - {{vacancy.position}}<br>
-    hours per week - {{vacancy.hoursPerWeek}}<br>
-    city - {{vacancy.city}}
-  </li>
-</ul>
+<div class="container">
+  <employer-nav></employer-nav>
 
-<button (click)="goToCVList()">Show CVs</button>
-<button (click)="signOut()">Sign Out</button><br><br>
+  <div *ngIf="ready">
+    <div class="jumbotron">
+      <h1 class="display-4">Hello, {{employer.name}}</h1>
+    </div>
 
-<span>Your messages:</span><br>
-<div *ngFor="let message of messages">
-  <span><b>From: </b>{{message.from}}, <b>CV: </b>{{message.data.CV.careerObjective.position}}</span><br>
-  <span><b>Vacancy: </b>{{message.data.vacancy.position}}</span>
-  <p>{{message.message}}</p>
+    <h3>Your Vacancies:</h3>
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+      <ngb-panel [title]="vacancy.position" *ngFor="let vacancy of vacancies">
+        <ng-template ngbPanelContent>
+          <table class="table table-borderless">
+            <tr>
+              <td><strong>Position: </strong></td>
+              <td>{{vacancy.position}}</td>
+            </tr>
+            <tr>
+              <td><strong>Hours per week: </strong></td>
+              <td>{{vacancy.hoursPerWeek}} hours / week</td>
+            </tr>
+            <tr>
+              <td><strong>City: </strong></td>
+              <td>{{vacancy.city}}</td>
+            </tr>
+          </table>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+
+    <span *ngIf="messages.length > 0">Your messages:</span><br>
+    <div *ngFor="let message of messages">
+      <span><b>From: </b>{{message.from}}, <b>CV: </b>{{message.data.CV.careerObjective.position}}</span><br>
+      <span><b>Vacancy: </b>{{message.data.vacancy.position}}</span>
+      <p>{{message.message}}</p>
+    </div>
+  </div>
 </div>

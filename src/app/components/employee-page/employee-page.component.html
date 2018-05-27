@@ -1,12 +1,60 @@
-<h1>Hello, {{employee.personalInfo.name}}</h1>
-<h3>Your CVs:</h3>
-<ul>
-  <li *ngFor="let cv of vacancies">
-    position - {{cv.careerObjective.position}}<br>
-    hours per week - {{cv.careerObjective.hoursPerWeek}}<br>
-    salary - ${{cv.careerObjective.salary}}
-  </li>
-</ul>
+<div class="container">
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand">Jobs</a>
 
-<button (click)="goToVacancyList()">Show vacancies</button>
-<button (click)="signOut()">Sign Out</button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToVacancyList()">Vacancies</a>
+        </li>
+      </ul>
+      <form class="form-inline">
+        <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2" type="button" (click)="signOut()">Sign out</button>
+      </form>
+    </div>
+  </nav>
+  <!--</nav>-->
+
+  <div *ngIf="ready">
+    <div class="jumbotron">
+      <h1 class="display-4">Hello, {{employee.personalInfo.name}}</h1>
+    </div>
+
+    <h3>Your CVs:</h3>
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+      <ngb-panel [title]="cv.careerObjective.position" *ngFor="let cv of cvs">
+        <ng-template ngbPanelContent>
+          <table class="table table-borderless">
+            <tr>
+              <td><strong>Position: </strong></td>
+              <td>{{cv.careerObjective.position}}</td>
+            </tr>
+            <tr>
+              <td><strong>Hours per week: </strong></td>
+              <td>{{cv.careerObjective.hoursPerWeek}} hours / week</td>
+            </tr>
+            <tr>
+              <td><strong>Salary: </strong></td>
+              <td>{{cv.careerObjective.salary}}$</td>
+            </tr>
+          </table>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+
+    <span *ngIf="messages.length > 0">Your messages:</span><br>
+    <div *ngFor="let message of messages">
+      <span><b>From: </b>{{message.from}}, <b>Vacancy: </b>{{message.data.vacancy.position}}</span><br>
+      <span><b>CV: </b>{{message.data.CV.careerObjective.position}}</span>
+      <p>{{message.message}}</p>
+    </div>
+  </div>
+</div>

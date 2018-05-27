@@ -4,12 +4,14 @@ import {VacancyListComponent} from "./vacancy-list.component";
 import {LaborExchangeModule} from "../../services/labor-exchange.service";
 import {VacancyDetailedModule} from "../vacancy-detailed/vacancy-detailed.module";
 import {DataShareServiceModule} from "../../services/data-share.service";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
     CommonModule,
     LaborExchangeModule,
-    DataShareServiceModule
+    DataShareServiceModule,
+    NgbModule
   ],
   declarations: [VacancyListComponent],
   exports: [VacancyListComponent]

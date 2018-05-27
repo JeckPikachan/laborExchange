@@ -3,14 +3,18 @@ import {Router} from '@angular/router';
 import {User} from "../model/user";
 import {LaborExchangeService} from "./labor-exchange.service";
 import {RoleEnum} from "../util/constants";
+import {map} from "rxjs/internal/operators";
+import {Observable} from "rxjs/index";
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
 
   private isSignedIn: boolean;
-  private signedInUser: User;
-  private signedUserRole: RoleEnum;
+  public signedInUser: User;
+  public signedUserRole: RoleEnum;
   private redirectUrl = '/';
   private signInUrl = '/login';
 
@@ -18,38 +22,45 @@ export class AuthService {
 
   }
 
-  isUserAuthenticated(login: string, password: string, role: RoleEnum): boolean {
+  isUserAuthenticated(login: string, password: string, role: RoleEnum): Observable<boolean> {
 
       let user: User;
       switch (role) {
         case RoleEnum.employee:
-          user = this.laborExchange.getEmployeeByLogin(login);
-          break;
+          return this.laborExchange.getEmployeeByLogin(login).pipe(map(employee => {
+            user = employee;
+            return this.checkPassword(user, password, role);
+          }));
         case RoleEnum.employer:
-          user = this.laborExchange.getEmployerByLogin(login);
-          break;
+          return this.laborExchange.getEmployerByLogin(login).pipe(map(employee => {
+            user = employee;
+            return this.checkPassword(user, password, role);
+          }));
       }
-      if (user && user.password === password) {
-        localStorage.setItem('signedUser', JSON.stringify({login: login, password: password, role: role}));
-        this.signedInUser = user;
-        this.signedUserRole = role;
-        switch (role) {
-          case RoleEnum.employee:
-            this.redirectUrl = 'employeePage';
-            break;
-          case RoleEnum.employer:
-            this.redirectUrl = 'employerPage';
-            break;
-        }
-        this.isSignedIn = true;
-      } else {
-        this.isSignedIn = false;
-      }
-
-      return this.isSignedIn;
   }
 
-  isUserSignedIn(): boolean {
+  private checkPassword(user: User, password: string, role: RoleEnum): boolean {
+    if (user && user.password === password) {
+      localStorage.setItem('signedUser', JSON.stringify({login: user.login, password: password, role: role}));
+      this.signedInUser = user;
+      this.signedUserRole = role;
+      switch (role) {
+        case RoleEnum.employee:
+          this.redirectUrl = 'employeePage';
+          break;
+        case RoleEnum.employer:
+          this.redirectUrl = 'employerPage';
+          break;
+      }
+      this.isSignedIn = true;
+    } else {
+      this.isSignedIn = false;
+    }
+
+    return this.isSignedIn;
+  }
+
+  isUserSignedIn(): boolean | Observable<boolean> {
     if (this.isSignedIn == null) {
       const isSigned = localStorage.getItem('signedUser');
       if (isSigned) {
@@ -91,6 +102,11 @@ export class AuthService {
 
   getSignedInUser(): User {
     return this.signedInUser;
+  }
+
+  getSignedInUserLogin(): string {
+    return this.signedInUser && this.signedInUser.login ||
+      localStorage.getItem('signedUser') && JSON.parse(localStorage.getItem('signedUser')).login;
   }
 
   signOutUser(): void {

@@ -4,9 +4,13 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {CVListComponent} from "./cv-list.component";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {EmployerNavModule} from "../employer-nav/employer-nav.module";
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    NgbModule,
+    EmployerNavModule
   ],
   declarations: [CVListComponent],
   exports: [CVListComponent]

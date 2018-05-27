@@ -1,71 +1,77 @@
 export class Vacancy {
-    private _position: string;
-    private _city: string;
-    private _hoursPerWeek: number;
-    private _desiredExperience: number;
-    private _salary: number;
-    private _description: string;
-    private _ownerLogin: string;
+  private _id: string;
+  private _position: string;
+  private _city: string;
+  private _hoursPerWeek: number;
+  private _desiredExperience: number;
+  private _salary: number;
+  private _description: string;
+  private _ownerLogin: string;
 
-    constructor(ownerLogin: string, obj?: any) {
-        this._ownerLogin = ownerLogin;
-        this._position = obj && obj._position;
-        this._city = obj && obj._city;
-        this._hoursPerWeek = obj && obj._hoursPerWeek;
-        this._desiredExperience = obj && obj._desiredExperience;
-        this._salary = obj && obj._salary;
-        this._description = obj && obj._description;
-    }
+  constructor(ownerLogin: string, obj?: any) {
+    this._id = obj && obj._id || ownerLogin + Date.now();
+    this._ownerLogin = ownerLogin;
+    this._position = obj && obj._position;
+    this._city = obj && obj._city;
+    this._hoursPerWeek = obj && obj._hoursPerWeek;
+    this._desiredExperience = obj && obj._desiredExperience;
+    this._salary = obj && obj._salary;
+    this._description = obj && obj._description;
+  }
 
-    public get ownerLogin(): string {
-        return this._ownerLogin;
-    }
+  public get id(): string {
+    return this._id;
+  }
 
-    public get position(): string {
-        return this._position;
-    }
+  public get ownerLogin(): string {
+    return this._ownerLogin;
+  }
 
-    public set position(position: string) {
-        this._position = position;
-    }
+  public get position(): string {
+    return this._position;
+  }
 
-    public get city(): string {
-        return this._city;
-    }
+  public set position(position: string) {
+    this._position = position;
+  }
 
-    public set city(city: string) {
-        this._city = city;
-    }
+  public get city(): string {
+    return this._city;
+  }
 
-    public get hoursPerWeek(): number {
-        return this._hoursPerWeek;
-    }
+  public set city(city: string) {
+    this._city = city;
+  }
 
-    public set hoursPerWeek(hpw: number) {
-        this._hoursPerWeek = hpw;
-    }
+  public get hoursPerWeek(): number {
+    return this._hoursPerWeek;
+  }
 
-    public get desiredExperience(): number {
-        return this._desiredExperience;
-    }
+  public set hoursPerWeek(hpw: number) {
+    this._hoursPerWeek = hpw;
+  }
 
-    public set desiredExperience(desiredExperience: number) {
-        this._desiredExperience = desiredExperience;
-    }
+  public get desiredExperience(): number {
+    return this._desiredExperience;
+  }
 
-    public get salary(): number {
-        return this._salary;
-    }
+  public set desiredExperience(desiredExperience: number) {
+    this._desiredExperience = desiredExperience;
+  }
 
-    public set salary(salary: number) {
-        this._salary = salary;
-    }
+  public get salary(): number {
+    return this._salary;
+  }
 
-    public get description(): string {
-        return this._description;
-    }
+  public set salary(salary: number) {
+    this._salary = salary;
+  }
 
-    public set description(description: string) {
-        this._description = description;
-    }
+  public get description(): string {
+    return this._description;
+  }
+
+  public set description(description: string) {
+    this._description = description;
+  }
 }

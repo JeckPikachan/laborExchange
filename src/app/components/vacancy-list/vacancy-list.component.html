@@ -1,10 +1,71 @@
-<div>
-  <button (click)="goBack()">Back</button>
-  <ul>
-    <li *ngFor="let vacancy of vacancyList">
-      <a style="cursor: pointer;" (click)="showDetailed(vacancy)" >
-        {{vacancy.position}}
-      </a>
-    </li>
-  </ul>
+<div class="container">
+  <employee-nav></employee-nav>
+  <div class="jumbotron">
+    <h1 class="display-4">Vacancies</h1>
+  </div>
+
+  <ngb-accordion *ngIf="vacancyList.length > 0" #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel [title]="vacancy.position" *ngFor="let vacancy of vacancyList; index as i">
+      <ng-template ngbPanelContent>
+        <table class="table table-borderless">
+          <tr>
+            <td><strong>Position: </strong></td>
+            <td>{{vacancy.position}}</td>
+          </tr>
+          <tr>
+            <td><strong>Hours per week: </strong></td>
+            <td>{{vacancy.hoursPerWeek}} hours / week</td>
+          </tr>
+          <tr>
+            <td><strong>City: </strong></td>
+            <td>{{vacancy.city}}</td>
+          </tr>
+        </table>
+        <button *ngIf="!responded[i]" type="button" class="btn btn-success" (click)="openVacancyModal(vacancy, i, vacancyModal)">respond!
+        </button>
+        <button *ngIf="responded[i]" type="button" class="btn btn-block" disabled>You responded</button>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
 </div>
+
+<ng-template #vacancyModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Respond</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click'); clearData()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>
+        Your CV:
+      </label>
+
+      <select [(ngModel)]="chosenCV" class="form-control">
+        <option *ngFor="let cv of userCVs" [ngValue]="cv">{{cv.careerObjective.position}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Message text: </label>
+      <textarea [(ngModel)]="textMessage" style="resize: none" class="form-control" rows="6"></textarea>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="respondChosenVacancy(); c('Close click')">Respond</button>
+    <button type="button" class="btn btn-light" (click)="c('Close click'); clearData()">Close</button>
+  </div>
+</ng-template>
+
+
+<!--<div>-->
+  <!--<button (click)="goBack()">Back</button>-->
+  <!--<ul>-->
+    <!--<li *ngFor="let vacancy of vacancyList">-->
+      <!--<a style="cursor: pointer;" (click)="showDetailed(vacancy)" >-->
+        <!--{{vacancy.position}}-->
+      <!--</a>-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</div>-->

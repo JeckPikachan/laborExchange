@@ -6,11 +6,13 @@ import {CommonModule} from "@angular/common";
 import {CVListComponent} from "./cv-list.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {EmployerNavModule} from "../employer-nav/employer-nav.module";
+import {FormsModule} from "@angular/forms";
 @NgModule({
   imports: [
     CommonModule,
     NgbModule,
-    EmployerNavModule
+    EmployerNavModule,
+    FormsModule
   ],
   declarations: [CVListComponent],
   exports: [CVListComponent]

@@ -26,8 +26,8 @@ export class LaborExchangeService {
     );
   }
 
-  public getCVListByEmployee(employee: Employee): CV[] {
-    return Constants.cvList.filter(cv => cv.ownerLogin === employee.login);
+  public getCVListByEmployeeLogin(login: string): CV[] {
+    return Constants.cvList.filter(cv => cv.ownerLogin === login);
   }
 
   public getEmployerByVacancy(vacancy: Vacancy): Employer {
@@ -44,12 +44,16 @@ export class LaborExchangeService {
     return Constants.vacancyList.filter(vacancy => vacancy.ownerLogin === login);
   }
 
-  public getFullVacancyList(): Vacancy[] {
-    return Constants.vacancyList;
+  public getFullVacancyList(): Observable<Vacancy[]> {
+    return this.http.get(serverApiUrl + '/getFullVacancyList').pipe(
+      map(data => (<Array<any>>data).map(vacancy => new Vacancy(vacancy._ownerLogin, vacancy)))
+    );
   }
 
-  public getFullCVList(): CV[] {
-    return Constants.cvList;
+  public getFullCVList(): Observable<CV[]> {
+    return this.http.get(serverApiUrl + '/getFullCVList').pipe(
+      map(data => (<Array<any>>data).map(cv => new CV(cv._ownerLogin, cv)))
+    );
   }
 
 }

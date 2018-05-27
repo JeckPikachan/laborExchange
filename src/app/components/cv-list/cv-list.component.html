@@ -4,8 +4,8 @@
     <h1 class="display-4">Curriculum Vitae</h1>
   </div>
 
-  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-    <ngb-panel [title]="cv.careerObjective.position" *ngFor="let cv of CVList">
+  <ngb-accordion *ngIf="CVList.length > 0" #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel [title]="cv.careerObjective.position" *ngFor="let cv of CVList; index as i">
       <ng-template ngbPanelContent>
         <table class="table table-borderless">
           <tr>
@@ -21,8 +21,9 @@
             <td>{{cv.careerObjective.salary}}$</td>
           </tr>
         </table>
-        <button type="button" class="btn btn-success"
-                *ngIf="!hasResponded" (click)="openCvModal(cv, cvModal)">respond!</button>
+        <button *ngIf="!responded[i]" type="button" class="btn btn-success" (click)="openCvModal(cv, i, cvModal)">respond!
+        </button>
+        <button *ngIf="responded[i]" type="button" class="btn btn-block" disabled>You responded</button>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
@@ -30,15 +31,29 @@
 
 <ng-template #cvModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <h4 class="modal-title">Respond</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click'); clearData()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <p>One fine body&hellip;</p>
+    <div class="form-group">
+      <label>
+        Your vacancy:
+      </label>
+
+      <select [(ngModel)]="chosenVacancy" class="form-control">
+        <option *ngFor="let vacancy of userVacancies" [ngValue]="vacancy">{{vacancy.position}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Message text: </label>
+      <textarea [(ngModel)]="textMessage" style="resize: none" class="form-control" rows="6"></textarea>
+    </div>
+
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="c('Close click')">Close</button>
+    <button type="button" class="btn btn-outline-success" (click)="respondChosenCV(); c('Close click')">Respond</button>
+    <button type="button" class="btn btn-light" (click)="c('Close click'); clearData()">Close</button>
   </div>
 </ng-template>

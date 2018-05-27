@@ -30,7 +30,7 @@ export class EmployeePageComponent implements OnInit {
     this.currentUserLogin = this.route.snapshot.paramMap.get('login');
     this.laborExchange.getEmployeeByLogin(this.currentUserLogin).subscribe(data => {
       this.employee = <Employee>data;
-      this.cvs = this.laborExchange.getCVListByEmployee(this.employee);
+      this.cvs = this.laborExchange.getCVListByEmployeeLogin(this.currentUserLogin);
       this.ready = true;
     });
 

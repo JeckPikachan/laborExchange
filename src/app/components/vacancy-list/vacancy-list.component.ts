@@ -32,9 +32,11 @@ export class VacancyListComponent implements OnInit {
     this.laborExchange.getFullVacancyList().subscribe(vacancies => {
       this.vacancyList = vacancies;
     });
-    this.userCVs = this.laborExchange.getCVListByEmployeeLogin(this.authService.getSignedInUserLogin());
-    this.chosenCV = this.userCVs[0];
-    this.responded = this.userCVs.map(() => false);
+    this.laborExchange.getCVListByEmployeeLogin(this.authService.getSignedInUserLogin()).subscribe(data => {
+      this.userCVs = data;
+      this.chosenCV = this.userCVs[0];
+      this.responded = this.userCVs.map(() => false);
+    });
   }
 
   public openVacancyModal(vacancy: Vacancy, index: number, content: any): void {

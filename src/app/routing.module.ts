@@ -10,6 +10,8 @@ import {EmployerPageComponent} from "./components/employer-page/employer-page.co
 import {EmployerPageModule} from "./components/employer-page/employer-page.module";
 import {CVListComponent} from "./components/cv-list/cv-list.component";
 import {CVListModule} from "./components/cv-list/cv-list.module";
+import {MessagingModule} from "./components/messaging/messaging.module";
+import {MessagingComponent} from "./components/messaging/messaging.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -18,6 +20,7 @@ export const routes: Routes = [
   {path: 'employerPage/:login', component: EmployerPageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'CVList', component: CVListComponent},
+  {path: 'messages', component: MessagingComponent}
 ];
 
 @NgModule({
@@ -27,7 +30,8 @@ export const routes: Routes = [
     EmployeePageModule,
     EmployerPageModule,
     LoginModule,
-    CVListModule
+    CVListModule,
+    MessagingModule
   ],
   exports: [RouterModule],
   providers: []

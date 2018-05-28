@@ -17,15 +17,7 @@ export class JobOffer {
     return this._vacancy;
   }
 
-  set vacancy(value: Vacancy) {
-    this._vacancy = value;
-  }
-
   get CV(): CV {
     return this._CV;
-  }
-
-  set CV(value: CV) {
-    this._CV = value;
   }
 }

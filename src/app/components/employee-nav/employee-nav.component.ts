@@ -35,4 +35,8 @@ export class EmployeeNavComponent implements OnInit {
     }
   }
 
+  public goToMessaging(): void {
+    this.router.navigate(['messages']);
+  }
+
 }

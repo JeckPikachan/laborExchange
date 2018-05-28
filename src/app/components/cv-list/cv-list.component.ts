@@ -34,11 +34,12 @@ export class CVListComponent implements OnInit {
   ngOnInit() {
     this.laborExchange.getFullCVList().subscribe(cvs => {
       this.CVList = cvs;
-      console.log(cvs);
     });
-    this.userVacancies = this.laborExchange.getVacancyListByEmployerLogin(this.authService.getSignedInUserLogin());
-    this.chosenVacancy = this.userVacancies[0];
-    this.responded = this.userVacancies.map(() => false);
+    this.laborExchange.getVacancyListByEmployerLogin(this.authService.getSignedInUserLogin()).subscribe(data => {
+      this.userVacancies = data;
+      this.chosenVacancy = this.userVacancies[0];
+      this.responded = this.userVacancies.map(() => false);
+    });
   }
 
   public openCvModal(cv: CV, index: number, content: any): void {

@@ -7,8 +7,39 @@
       <h1 class="display-4">Hello, {{employee.personalInfo.name}}</h1>
     </div>
 
-    <h3>Your CVs:</h3>
-    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-alert type="success" *ngIf="successfullyAdded">
+      <strong>Your Curriculum Vitae successfully added!</strong>
+    </ngb-alert>
+
+    <ngb-alert type="success" *ngIf="successfullyRemoved">
+      <strong>Your Vacancy successfully removed!</strong>
+    </ngb-alert>
+
+    <button type="button" class="btn btn-primary btn-lg btn-block mb-5" *ngIf="!addingCV" (click)="startAddingCV()">
+      + Add Curriculum Vitae</button>
+
+    <form *ngIf="addingCV" [formGroup]="addCVForm">
+      <div class="form-group">
+        <label>Position</label>
+        <input type="text" class="form-control" formControlName="position">
+      </div>
+      <validator-message [field]="addCVForm.get('position')"></validator-message>
+      <div class="form-group">
+        <label>Hours per week</label>
+        <input type="text" class="form-control" formControlName="hoursPerWeek">
+      </div>
+      <validator-message [field]="addCVForm.get('hoursPerWeek')"></validator-message>
+      <div class="form-group">
+        <label>Salary</label>
+        <input type="text" class="form-control" formControlName="salary">
+      </div>
+      <validator-message [field]="addCVForm.get('salary')"></validator-message>
+      <button type="button" class="btn btn-success mr-2 mt-5" (click)="saveCV()">Submit</button>
+      <button type="button" class="btn btn-outline-danger mt-5" (click)="finishAddingCV()">Cancel</button>
+    </form>
+
+    <h3 *ngIf="!addingCV">Your CVs:</h3>
+    <ngb-accordion *ngIf="!addingCV" #acc="ngbAccordion" activeIds="ngb-panel-0">
       <ngb-panel [title]="cv.careerObjective.position" *ngFor="let cv of cvs">
         <ng-template ngbPanelContent>
           <table class="table table-borderless">
@@ -25,15 +56,9 @@
               <td>{{cv.careerObjective.salary}}$</td>
             </tr>
           </table>
+          <button type="button" class="btn btn-danger" (click)="removeCV(cv.id)">Delete</button>
         </ng-template>
       </ngb-panel>
     </ngb-accordion>
-
-    <span *ngIf="messages.length > 0">Your messages:</span><br>
-    <div *ngFor="let message of messages">
-      <span><b>From: </b>{{message.from}}, <b>Vacancy: </b>{{message.data.vacancy.position}}</span><br>
-      <span><b>CV: </b>{{message.data.CV.careerObjective.position}}</span>
-      <p>{{message.message}}</p>
-    </div>
   </div>
 </div>

@@ -109,6 +109,11 @@ export class AuthService {
       localStorage.getItem('signedUser') && JSON.parse(localStorage.getItem('signedUser')).login;
   }
 
+  getSignedInUserRole(): RoleEnum {
+    return this.signedUserRole ||
+      localStorage.getItem('signedUser') && JSON.parse(localStorage.getItem('signedUser')).role;
+  }
+
   signOutUser(): void {
     this.isSignedIn = false;
     localStorage.removeItem('signedUser');

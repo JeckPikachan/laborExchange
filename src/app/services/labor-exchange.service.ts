@@ -26,8 +26,10 @@ export class LaborExchangeService {
     );
   }
 
-  public getCVListByEmployeeLogin(login: string): CV[] {
-    return Constants.cvList.filter(cv => cv.ownerLogin === login);
+  public getCVListByEmployeeLogin(login: string): Observable<CV[]> {
+    return this.http.get(serverApiUrl + '/getCVListByLogin/' + login).pipe(
+      map(data => (<Array<any>>data).map(cv => new CV(cv._ownerLogin, cv)))
+    );
   }
 
   public getEmployerByVacancy(vacancy: Vacancy): Employer {
@@ -40,8 +42,10 @@ export class LaborExchangeService {
     );
   }
 
-  public getVacancyListByEmployerLogin(login: string): Vacancy[] {
-    return Constants.vacancyList.filter(vacancy => vacancy.ownerLogin === login);
+  public getVacancyListByEmployerLogin(login: string): Observable<Vacancy[]> {
+    return this.http.get(serverApiUrl + '/getVacancyListByLogin/' + login).pipe(
+      map(data => (<Array<any>>data).map(vacancy => new Vacancy(vacancy._ownerLogin, vacancy)))
+    );
   }
 
   public getFullVacancyList(): Observable<Vacancy[]> {
@@ -56,11 +60,26 @@ export class LaborExchangeService {
     );
   }
 
+  public addCV(cv: CV): void {
+    this.http.post(serverApiUrl + '/addCV', cv).subscribe();
+  }
+
+  public addVacancy(vacancy: Vacancy): void {
+    this.http.post(serverApiUrl + '/addVacancy', vacancy).subscribe();
+  }
+
+  public removeCV(id: string): void {
+    this.http.delete(serverApiUrl + '/removeCV/' + id).subscribe();
+  }
+
+  public removeVacancy(id: string): void {
+    this.http.delete(serverApiUrl + '/removeVacancy/' + id).subscribe();
+  }
+
 }
 
 @NgModule({
   imports: [HttpClientModule],
   providers: [LaborExchangeService]
 })
-export class LaborExchangeModule {
-}
+export class LaborExchangeModule {}

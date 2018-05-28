@@ -8,12 +8,16 @@ import {LaborExchangeModule} from "../../services/labor-exchange.service";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {EmployerNavComponent} from "../employer-nav/employer-nav.component";
 import {EmployerNavModule} from "../employer-nav/employer-nav.module";
+import {ValidatorMessageModule} from "../validator-message/validator-message.module";
+import {ReactiveFormsModule} from "@angular/forms";
 @NgModule({
   imports: [
     CommonModule,
     LaborExchangeModule,
     NgbModule,
-    EmployerNavModule
+    EmployerNavModule,
+    ReactiveFormsModule,
+    ValidatorMessageModule
   ],
   declarations: [EmployerPageComponent],
   exports: [EmployerPageComponent]

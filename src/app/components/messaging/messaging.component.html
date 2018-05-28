@@ -1,0 +1,24 @@
+<div class="container">
+  <employer-nav *ngIf="role == roles.employer"></employer-nav>
+  <employee-nav *ngIf="role == roles.employee"></employee-nav>
+
+  <div class="jumbotron">
+    <h1 class="display-4">Messages</h1>
+  </div>
+
+  <div class="card" *ngFor="let message of messages; index as i">
+    <h5 class="card-header"><strong>From: </strong>{{message.from}}</h5>
+    <div class="card-body">
+      <h5 class="card-title">
+        <strong>CV      : </strong>{{message.data.CV.careerObjective.position}}<br>
+        <strong>Vacancy : </strong>{{message.data.vacancy.position}}
+      </h5>
+      <p class="card-text" *ngIf="show[i]">{{message.message}}</p>
+      <button type="button"
+              class="btn btn-primary" *ngIf="!show[i]" (click)="showMessage(i)">Show text</button>
+      <button type="button"
+              class="btn btn-primary" *ngIf="show[i]" (click)="hideMessage(i)">Hide text</button>
+    </div>
+  </div>
+
+</div>

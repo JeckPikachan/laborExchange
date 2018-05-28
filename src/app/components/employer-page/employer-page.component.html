@@ -6,8 +6,39 @@
       <h1 class="display-4">Hello, {{employer.name}}</h1>
     </div>
 
-    <h3>Your Vacancies:</h3>
-    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-alert type="success" *ngIf="successfullyAdded">
+      <strong>Your Vacancy successfully added!</strong>
+    </ngb-alert>
+
+    <ngb-alert type="success" *ngIf="successfullyRemoved">
+      <strong>Your Vacancy successfully removed!</strong>
+    </ngb-alert>
+
+    <button type="button" class="btn btn-primary btn-lg btn-block mb-5" *ngIf="!addingVacancy" (click)="startAddingVacancy()">
+      + Add Vacancy</button>
+
+    <form *ngIf="addingVacancy" [formGroup]="addVacancyForm">
+      <div class="form-group">
+        <label>Position</label>
+        <input type="text" class="form-control" formControlName="position">
+      </div>
+      <validator-message [field]="addVacancyForm.get('position')"></validator-message>
+      <div class="form-group">
+        <label>Hours per week</label>
+        <input type="text" class="form-control" formControlName="hoursPerWeek">
+      </div>
+      <validator-message [field]="addVacancyForm.get('hoursPerWeek')"></validator-message>
+      <div class="form-group">
+        <label>City</label>
+        <input type="text" class="form-control" formControlName="city">
+      </div>
+      <validator-message [field]="addVacancyForm.get('city')"></validator-message>
+      <button type="button" class="btn btn-success mr-2 mt-5" (click)="saveVacancy()">Submit</button>
+      <button type="button" class="btn btn-outline-danger mt-5" (click)="finishAddingVacancy()">Cancel</button>
+    </form>
+
+    <h3 *ngIf="!addingVacancy">Your Vacancies:</h3>
+    <ngb-accordion *ngIf="!addingVacancy" #acc="ngbAccordion" activeIds="ngb-panel-0">
       <ngb-panel [title]="vacancy.position" *ngFor="let vacancy of vacancies">
         <ng-template ngbPanelContent>
           <table class="table table-borderless">
@@ -24,15 +55,9 @@
               <td>{{vacancy.city}}</td>
             </tr>
           </table>
+          <button type="button" class="btn btn-danger" (click)="removeVacancy(vacancy.id)">Delete</button>
         </ng-template>
       </ngb-panel>
     </ngb-accordion>
-
-    <span *ngIf="messages.length > 0">Your messages:</span><br>
-    <div *ngFor="let message of messages">
-      <span><b>From: </b>{{message.from}}, <b>CV: </b>{{message.data.CV.careerObjective.position}}</span><br>
-      <span><b>Vacancy: </b>{{message.data.vacancy.position}}</span>
-      <p>{{message.message}}</p>
-    </div>
   </div>
 </div>
